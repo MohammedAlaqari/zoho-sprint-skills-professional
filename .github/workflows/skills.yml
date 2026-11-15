@@ -1,0 +1,32 @@
+name: skills-ci
+
+on:
+  push:
+    paths:
+      - ".agents/skills/**"
+      - ".opencode/skills/**"
+      - "zoho-sprints-professional/**"
+      - "tests/**"
+      - "package.json"
+  pull_request:
+    paths:
+      - ".agents/skills/**"
+      - ".opencode/skills/**"
+      - "zoho-sprints-professional/**"
+      - "tests/**"
+      - "package.json"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Live skill contract tests
+        run: node --test tests/skills-contract.test.mjs
+      - name: Package tests
+        run: node --test zoho-sprints-professional/tests/skill.test.mjs zoho-sprints-professional/tests/install.test.mjs
+      - name: Package consistency check
+        run: node zoho-sprints-professional/tools/skill.mjs check

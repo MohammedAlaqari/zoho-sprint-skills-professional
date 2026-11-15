@@ -2,18 +2,18 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { SKILL_NAMES } from './skill.mjs';
 
 const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const skillSource = path.join(packageRoot, 'skills', 'zoho-sprints');
 
 const locations = {
-  codex: [['skill', '.agents/skills/zoho-sprints']],
-  claude: [['skill', '.claude/skills/zoho-sprints']],
-  opencode: [['skill', '.opencode/skills/zoho-sprints']],
-  cursor: [['skill', '.cursor/skills/zoho-sprints']],
-  kiro: [['skill', '.kiro/skills/zoho-sprints']],
-  antigravity: [['skill', '.agents/skills/zoho-sprints']],
-  generic: [['skill', '.agents/skills/zoho-sprints']],
+  codex: '.agents/skills',
+  claude: '.claude/skills',
+  opencode: '.opencode/skills',
+  cursor: '.cursor/skills',
+  kiro: '.kiro/skills',
+  antigravity: '.agents/skills',
+  generic: '.agents/skills',
 };
 
 function usage() {
@@ -50,14 +50,15 @@ function assertSafeDestination(destination) {
   }
 }
 
-const sources = {
-  skill: skillSource,
-  cursor: path.join(packageRoot, 'editor-adapters', 'cursor', 'zoho-sprints.mdc'),
-  kiro: path.join(packageRoot, 'editor-adapters', 'kiro', 'zoho-sprints.md'),
-};
-const copies = locations[editor].map(([sourceName, relative]) => ({
-  source: sources[sourceName],
-  destination: path.join(root, relative),
+for (const name of SKILL_NAMES) {
+  if (!fs.existsSync(path.join(packageRoot, 'skills', name, 'SKILL.md'))) {
+    throw new Error(`Packaged skill is missing: ${name}`);
+  }
+}
+
+const copies = SKILL_NAMES.map((name) => ({
+  source: path.join(packageRoot, 'skills', name),
+  destination: path.join(root, locations[editor], name),
 }));
 
 for (const copy of copies) {

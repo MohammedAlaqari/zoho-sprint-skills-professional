@@ -11,6 +11,18 @@ Read before proposing or writing Stories, Tasks or Bugs. The user's required bus
 
 Build a preflight matrix: field label, API key, type, required/conditional rule, current value, proposed value, evidence/source, writable tool argument, and outcome (`verified`, `needs_input`, `unknown_schema`, `unsupported_write`). Existing populated values are preserved unless the user explicitly authorizes a replacement. Required-field checks apply to updates as well as creates; blocked mandatory data prevents the affected write.
 
+## Description structure
+
+The description is structured multi-line text, not a one-line summary. Preserve the existing description byte-for-byte, then add the exact separator on its own line:
+
+```text
+##+=================================================##
+```
+
+Below it, write the new/actual-delivery section with headings, criterion verdicts and evidence. Never overwrite the old business explanation. If the old text is HTML, preserve its markup and insert the separator as its own paragraph.
+
+MCP carries description text in the query string, so a large payload can fail with `414` or `Error in executing tool`. Do not truncate or split the description. Use [large description writes](large-description-writes.md) for the `application/x-www-form-urlencoded` fallback and read back the stored value. Assemble the text with [append-description.mjs](../scripts/append-description.mjs) to verify that the old bytes, the single separator and the new hash are correct.
+
 ## Tool capability boundary
 
 Check the live create/update schema independently of Zoho's layout. If a required custom field exists but the connected MCP tool cannot submit it, record `unsupported_write`. Never invent UDF arguments, assume an undocumented extra object is accepted, or claim that putting its text in description filled the native field. Present a concrete mapping/payload for review and identify the missing official API/MCP operation or authorized UI path needed to complete it. Do not create an intentionally incomplete record or split a required create into a speculative later update.

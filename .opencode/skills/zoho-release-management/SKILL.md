@@ -1,6 +1,6 @@
 ---
 name: zoho-release-management
-description: Plan, create, update and verify Zoho Sprints releases, including release stages, item association and mobile version numbers read from the project code or continued from the last mobile release. Use when preparing a release, deciding its version, or closing a release train.
+description: Use when preparing, versioning, or closing a Zoho Sprints release — release stages, item association, and mobile version numbers read from the project code or continued from the last mobile release.
 ---
 
 # Zoho Release Management

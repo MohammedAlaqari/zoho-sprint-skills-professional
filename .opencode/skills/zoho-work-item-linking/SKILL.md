@@ -1,6 +1,6 @@
 ---
 name: zoho-work-item-linking
-description: Link, delink, clone and split Zoho Sprints work items with the correct relationship, and apply Part n naming when unfinished or cloned work continues at sprint close. Use for dependency mapping, parent/child structure, duplicate canonicalisation, or sprint carry-over.
+description: Use when mapping dependencies, parent/child structure, duplicates, or sprint carry-over — links, delinks, clones and splits Zoho Sprints items with the correct relationship and applies Part n naming when unfinished or cloned work continues in another sprint.
 ---
 
 # Zoho Work-Item Linking

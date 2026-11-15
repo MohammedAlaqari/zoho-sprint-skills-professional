@@ -1,0 +1,13 @@
+{
+  "name": "zoho-sprint-skills-workspace",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "test": "node --test tests/skills-contract.test.mjs",
+    "test:package": "node --test zoho-sprints-professional/tests/skill.test.mjs zoho-sprints-professional/tests/install.test.mjs",
+    "check": "npm run test && npm run test:package && node zoho-sprints-professional/tools/skill.mjs check",
+    "sync": "node zoho-sprints-professional/tools/skill.mjs sync"
+  }
+}

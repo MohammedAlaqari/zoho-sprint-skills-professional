@@ -4,15 +4,17 @@ import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
-import { check, sync } from '../tools/skill.mjs';
+import { check, sync, SKILL_NAMES } from '../tools/skill.mjs';
 
 const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 function fixture(run) {
   const base = fs.mkdtempSync(path.join(os.tmpdir(), 'zoho-skill-contract-'));
-  const source = path.join(base, '.agents', 'skills', 'zoho-sprints');
-  fs.mkdirSync(path.dirname(source), { recursive: true });
-  fs.cpSync(path.join(packageRoot, '.agents', 'skills', 'zoho-sprints'), source, { recursive: true });
+  for (const name of SKILL_NAMES) {
+    const source = path.join(base, '.agents', 'skills', name);
+    fs.mkdirSync(path.dirname(source), { recursive: true });
+    fs.cpSync(path.join(packageRoot, '.agents', 'skills', name), source, { recursive: true });
+  }
   try { run(base); }
   finally {
     const resolved = path.resolve(base);
@@ -22,17 +24,20 @@ function fixture(run) {
   }
 }
 
-test('sync creates an identical portable skill and deterministic manifest', () => fixture((base) => {
+test('sync creates identical portable skills and a deterministic manifest', () => fixture((base) => {
   sync(base);
   assert.deepEqual(check(base), []);
-  const manifest = fs.readFileSync(path.join(base, 'manifest.json'), 'utf8');
+  const manifest = JSON.parse(fs.readFileSync(path.join(base, 'manifest.json'), 'utf8'));
+  assert.equal(manifest.version, '3.0.0');
+  assert.deepEqual(manifest.skills.map((skill) => skill.name), SKILL_NAMES);
+  const first = fs.readFileSync(path.join(base, 'manifest.json'), 'utf8');
   sync(base);
-  assert.equal(fs.readFileSync(path.join(base, 'manifest.json'), 'utf8'), manifest);
+  assert.equal(fs.readFileSync(path.join(base, 'manifest.json'), 'utf8'), first);
 }));
 
-test('check rejects drift in the portable copy', () => fixture((base) => {
+test('check rejects drift in any portable copy', () => fixture((base) => {
   sync(base);
-  fs.appendFileSync(path.join(base, 'skills', 'zoho-sprints', 'SKILL.md'), '\nStale edit\n');
+  fs.appendFileSync(path.join(base, 'skills', 'zoho-task-authoring', 'SKILL.md'), '\nStale edit\n');
   assert.ok(check(base).some((error) => error.includes('distribution differs')));
 }));
 
@@ -43,4 +48,12 @@ test('check rejects broken links and private endpoints', () => fixture((base) =>
   assert.ok(check(base).some((error) => error.includes('broken link')));
   fs.appendFileSync(skill, '\nhttps://example.zohomcp.com/mcp/private\n');
   assert.ok(check(base).some((error) => error.includes('private MCP endpoint')));
+}));
+
+test('check rejects a description that does not start with Use when', () => fixture((base) => {
+  sync(base);
+  const file = path.join(base, '.agents', 'skills', 'zoho-task-authoring', 'SKILL.md');
+  const text = fs.readFileSync(file, 'utf8').replace(/^description: Use when /m, 'description: Handles ');
+  fs.writeFileSync(file, text);
+  assert.ok(check(base).some((error) => error.includes('must start with "Use when"')));
 }));

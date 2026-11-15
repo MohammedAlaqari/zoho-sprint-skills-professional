@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
+import { SKILL_NAMES } from '../tools/skill.mjs';
 
 const packageRoot = path.resolve(import.meta.dirname, '..');
 const installer = path.join(packageRoot, 'tools', 'install.mjs');
@@ -13,15 +14,17 @@ function withTarget(run) {
   try { run(target); } finally { fs.rmSync(target, { recursive: true, force: true }); }
 }
 
-test('Codex install copies the complete skill without MCP credentials', () => withTarget((target) => {
+test('Codex install copies every skill without MCP credentials', () => withTarget((target) => {
   execFileSync(process.execPath, [installer, '--editor', 'codex', '--target', target]);
-  const installed = path.join(target, '.agents', 'skills', 'zoho-sprints');
-  assert.ok(fs.existsSync(path.join(installed, 'SKILL.md')));
-  assert.ok(fs.existsSync(path.join(installed, 'references', 'audit-ledger.md')));
-  assert.ok(fs.existsSync(path.join(installed, 'workflows', 'developer-story.md')));
-  assert.ok(fs.existsSync(path.join(installed, 'checks', 'write-verification.md')));
-  assert.ok(fs.existsSync(path.join(installed, 'assets', 'profile.example.yaml')));
-  assert.equal(fs.existsSync(path.join(installed, 'mcp_sprint_config.json')), false);
+  for (const name of SKILL_NAMES) {
+    const installed = path.join(target, '.agents', 'skills', name);
+    assert.ok(fs.existsSync(path.join(installed, 'SKILL.md')), `missing ${name}`);
+  }
+  const sprints = path.join(target, '.agents', 'skills', 'zoho-sprints');
+  assert.ok(fs.existsSync(path.join(sprints, 'references', 'large-description-writes.md')));
+  assert.ok(fs.existsSync(path.join(sprints, 'scripts', 'append-description.mjs')));
+  assert.ok(fs.existsSync(path.join(sprints, 'references', 'audit-ledger.md')));
+  assert.equal(fs.existsSync(path.join(sprints, 'mcp_sprint_config.json')), false);
 }));
 
 test('existing installation is refused unless force is explicit', () => withTarget((target) => {
@@ -41,12 +44,14 @@ test('existing installation is refused unless force is explicit', () => withTarg
 }));
 
 for (const [editor, folder] of Object.entries({cursor: '.cursor', kiro: '.kiro', opencode: '.opencode', antigravity: '.agents', generic: '.agents', claude: '.claude'})) {
-  test(`${editor} installs a complete skill in its discovery path`, () => withTarget((target) => {
+  test(`${editor} installs every skill in its discovery path`, () => withTarget((target) => {
     execFileSync(process.execPath, [installer, '--editor', editor, '--target', target]);
-    const installed = path.join(target, folder, 'skills', 'zoho-sprints');
-    assert.ok(fs.existsSync(path.join(installed, 'SKILL.md')));
-    assert.ok(fs.existsSync(path.join(installed, 'workflows', 'git-audit.md')));
-    assert.ok(fs.existsSync(path.join(installed, 'checks', 'audit-continuity.md')));
+    for (const name of SKILL_NAMES) {
+      const installed = path.join(target, folder, 'skills', name);
+      assert.ok(fs.existsSync(path.join(installed, 'SKILL.md')), `missing ${name}`);
+    }
+    assert.ok(fs.existsSync(path.join(target, folder, 'skills', 'zoho-sprints', 'workflows', 'git-audit.md')));
+    assert.ok(fs.existsSync(path.join(target, folder, 'skills', 'zoho-task-authoring', 'assets', 'task-template-ar-en.md')));
   }));
 }
 

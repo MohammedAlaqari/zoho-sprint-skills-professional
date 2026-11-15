@@ -1,6 +1,6 @@
 ---
 name: zoho-workflow
-description: Orchestrate a multi-stage Zoho Sprints project workflow in a BMAD-like way, choose the relevant Zoho skill from current evidence, track progress, and recommend the next actionable step. Use for end-to-end planning, reconciliation, sprint preparation, or requests asking what to do next; use a specialist skill directly for a single focused operation.
+description: Use when coordinating a multi-stage Zoho Sprints workflow in a BMAD-like way — onboarding, audit, sprint preparation, story or task drafting, release planning — or when the user asks what to do next. Chooses the relevant specialist skill from current evidence, tracks progress, and recommends the next actionable step; use a specialist skill directly for a single focused operation.
 ---
 
 # Zoho Workflow
@@ -18,6 +18,7 @@ Coordinate the existing Zoho skills. This skill chooses the next action; it does
 | Learn the project's conventions or establish a project baseline | `zoho-project-knowledge`: scoped knowledge with sources and coverage |
 | Check connection, browse, manage sprint/project/item, or reconcile Git/approved BMAD with Zoho | `zoho-sprints`: verified state, audit, or item result |
 | Turn a requirement or audit gap into a reviewable Story | `user-story-authoring`: draft and acceptance criteria |
+| Turn a Story or defect into executable developer work | `zoho-task-authoring`: Task or Bug with parent, acceptance criteria, test expectation and assignee |
 | Create or update a Story, Task or Bug in Zoho | `zoho-sprints`: duplicate check, authorized write, read-back |
 | Organize dependencies, parent/child items, duplicates, or carry-over | `zoho-work-item-linking`: verified relationships and disposition |
 | Plan or verify a deployable release | `zoho-release-management`: version, associations, stage and evidence |

@@ -1,6 +1,6 @@
 ---
 name: user-story-authoring
-description: Author, analyze, and review User Stories for the World Cup / Sports Activities project, including bilingual Zoho fields, acceptance criteria, dependencies, traceability to BMAD/Git, Definition of Ready/Done, and half-month sprint placement. Use when drafting or critiquing a story, not for general Zoho administration.
+description: Use when drafting, analyzing, or reviewing a User Story for the World Cup / Sports Activities project — bilingual Zoho fields, acceptance criteria, dependencies, BMAD/Git traceability, Definition of Ready/Done, and half-month sprint placement; not for general Zoho administration.
 ---
 
 # User Story Authoring
@@ -32,7 +32,7 @@ Use this skill to turn an approved requirement or BMAD artifact into a reviewabl
 - Do not change status because code exists. Status changes require acceptance evidence; otherwise keep the status and record `unverified`.
 - Preserve existing descriptions byte-for-byte. Append actual-delivery notes after the exact separator `##+=================================================##`; never replace requirements with implementation claims. See [description format](references/team-routing-and-estimation.md#description-format).
 - Half-month sprint rule: 1st–15th and 16th–end of month. Do not copy the historical monthly pattern unless the user explicitly asks for it.
-- A Story may have child Tasks/Bugs; a Task must have a parent Story. Do not create a child under a parent assigned to someone else.
+- A Story may have child Tasks/Bugs; a Task must have a parent Story. Do not create a child under a parent assigned to someone else. Use `zoho-task-authoring` for the Task/Bug draft, assignment and duplicate check.
 - When BMAD yields micro-stories below 2 points, consolidate only same-actor/same-outcome/same-epic/same-release items; keep 3–7 AC and every source reference. See [BMAD consolidation](references/team-routing-and-estimation.md#bmad-consolidation).
 - At sprint close, carried or cloned items get `Part n - ` at the start of the title, Arabic name and English name; link the parts and preserve epic/release/parent. See [zoho-work-item-linking](../zoho-work-item-linking/SKILL.md).
 

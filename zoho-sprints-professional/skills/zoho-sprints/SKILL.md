@@ -1,6 +1,6 @@
 ---
 name: zoho-sprints
-description: Use connected Zoho Sprints MCP tools to browse or manage projects, sprints, User Stories, Tasks and Bugs under configured Admin/Developer rules, or reconcile local Git and approved BMAD work with Zoho. Do not use for unrelated trackers.
+description: Use when browsing or managing Zoho Sprints projects, sprints, User Stories, Tasks and Bugs under Admin/Developer rules, or reconciling local Git and approved BMAD work with Zoho; not for unrelated trackers.
 ---
 
 # Zoho Sprints
@@ -14,7 +14,7 @@ Read [the policy contract](references/policy-contract.md) and [contract.json](re
 | Connection or capability test | [MCP connection](checks/connection.md) | Connection only; no Zoho writes |
 | Admin project, sprint, or item management | [Admin management](workflows/admin-management.md) | [Read coverage](checks/read-coverage.md), [write verification](checks/write-verification.md) |
 | Developer's assigned work | [Browse my work](workflows/developer-browse.md) | [Read coverage](checks/read-coverage.md) |
-| Task/Bug under an assigned User Story | [Add child item](workflows/developer-child-item.md) | [Read coverage](checks/read-coverage.md), [write verification](checks/write-verification.md) |
+| Task/Bug under a User Story | `zoho-task-authoring` then [add child item](workflows/developer-child-item.md) | [Read coverage](checks/read-coverage.md), [write verification](checks/write-verification.md) |
 | New User Story | [Create story](workflows/developer-story.md) | [Read coverage](checks/read-coverage.md), [write verification](checks/write-verification.md) |
 | Join an existing matching Story | [Self-assignment](workflows/self-assignment.md) | Preserve assignees; verify permission and read back |
 | Fill business fields or reconcile actual delivery | [Document actual delivery](workflows/document-actual-delivery.md) | [Field completeness](references/field-completeness.md), preserve original description and append marked evidence |
@@ -31,6 +31,7 @@ Read [the policy contract](references/policy-contract.md) and [contract.json](re
 - A Developer child Task/Bug requires a verified User Story parent assigned to the current user's exact Zoho ID.
 - Before any create, search Backlog plus relevant active/upcoming/completed/canceled sprint items and children; never copy a Backlog match into the active sprint. Incomplete coverage blocks creation. See [read coverage](checks/read-coverage.md).
 - Before creating or updating work items, verify [business and mandatory layout fields](references/field-completeness.md): Arabic name, concise English name, business requester and description. Do not infer field keys or invent missing requester values. Preserve existing descriptions and append [actual delivery notes](workflows/document-actual-delivery.md) for partial or different implementation; never replace requirements with implementation claims.
+- Descriptions travel through MCP in the query string. A large description can fail with `414 Request-URI Too Large` or `Error in executing tool`. Never truncate, split, or move the text to another field. Preserve the old description byte-for-byte, put the exact separator `##+=================================================##` on its own line, then the marked section. If MCP rejects the payload for size, use the verified [large-description fallback](references/large-description-writes.md) with `application/x-www-form-urlencoded` and read back. Assemble the text with [append-description.mjs](scripts/append-description.mjs) so the old bytes, separator and hash are checked.
 - A read or diagnostic request authorizes no mutation. For every write, verify target, available tool, account permission, required fields, duplicate search and authorization, then read back. An ambiguous create stays pending; a negative search alone never authorizes retry.
 - Git/BMAD audits start with a review report. Preserve local Git state, never store secrets or full sensitive diffs, and record write intent before non-idempotent calls. See [ledger](references/audit-ledger.md).
 
@@ -39,3 +40,5 @@ Read [the policy contract](references/policy-contract.md) and [contract.json](re
 For detailed proposed or created work items, use [the item template](assets/work-item.template.md).
 
 Report the actual scope and pages checked, evidence, matching records, exact IDs, permissions/tool limits, writes attempted, read-back verification, and pending uncertainty. Do not turn permission flags, draft plans, old transcripts, or successful structural checks into claims of a Zoho write.
+
+For a multi-stage workflow, add one evidence-based next action using the `zoho-workflow` handoff format. Prioritize resolving incomplete coverage, likely duplicates, or `pending_verification` before any new create. After a verified item write, recommend a dependent Story review, link, delivery note, or release step only when the result and requested goal warrant it.

@@ -1,6 +1,6 @@
 ---
 name: zoho-project-knowledge
-description: Build and maintain a separate knowledge base for each Zoho Sprints project from its Backlog, Stories, Tasks, Bugs, sprints, epics, releases, team fields and historical patterns. Use when onboarding to a project, learning its conventions, or preparing cross-project work without mixing project data.
+description: Use when onboarding to a Zoho Sprints project, learning its conventions, or preparing cross-project work — builds one knowledge base per project from its Backlog, Stories, Tasks, Bugs, sprints, epics, releases, team fields and historical patterns, without mixing project data.
 ---
 
 # Zoho Project Knowledge
