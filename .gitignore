@@ -1,0 +1,13 @@
+# Local connection details and per-repository audit state.
+docu/mcp_sprint_config.json
+.zoho-sprints/
+
+# Local run artifacts
+reports/
+.zoho-sprints-skill-backups/
+node_modules/
+.vs/
+.codex/
+
+# Historical working copies (see docu/README if needed)
+docu/
