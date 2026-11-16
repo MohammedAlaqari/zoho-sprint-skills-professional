@@ -8,8 +8,20 @@
       "distribution": "skills/zoho-workflow/SKILL.md",
       "files": [
         {
+          "path": "assets/workflow-status.template.md",
+          "sha256": "6aa459d2f7004305af65b91776e1bf2145abcdd61347ecacd81f4e643d134737"
+        },
+        {
+          "path": "references/guided-session.md",
+          "sha256": "3a74501d85fd673a1058240af3e4ac36df2ff348c57a134c302ddc04856d99cf"
+        },
+        {
+          "path": "references/phase-map.md",
+          "sha256": "742c8a9e640e4a504949b151d4ace4becc8d80d681b73126b6a0af64ca5e11ce"
+        },
+        {
           "path": "SKILL.md",
-          "sha256": "6be803224c809205a0b2b7d6ca6cf068097f79ed10ab9faf7c8196e533e4183e"
+          "sha256": "3ceea7799d838dd8ab96316c129443fbbc62f07f48b8e3021c694a34baf8aecc"
         }
       ]
     },
