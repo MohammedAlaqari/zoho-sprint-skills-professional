@@ -19,9 +19,11 @@ const SEPARATOR = "##+=================================================##";
 const oldText = fs.readFileSync(oldPath, "utf8");
 const newText = fs.readFileSync(newPath, "utf8").replace(/^\uFEFF/, "");
 
-const combined = oldText.trim().length === 0
-  ? newText
-  : `${oldText.replace(/\s+$/, "")}\n${SEPARATOR}\n${newText}`;
+const hasOldText = oldText.length > 0;
+const lineBreak = /[\r\n]$/.test(oldText) ? "" : "\n";
+const combined = hasOldText
+  ? `${oldText}${lineBreak}${SEPARATOR}\n${newText}`
+  : newText;
 
 fs.writeFileSync(outPath, combined, "utf8");
 
@@ -30,10 +32,10 @@ console.log(JSON.stringify({
   oldPath,
   newPath,
   outPath,
-  separator: oldText.trim().length === 0 ? null : SEPARATOR,
+  separator: hasOldText ? SEPARATOR : null,
   oldHash: hash(oldText),
   newHash: hash(combined),
   oldLength: oldText.length,
   newLength: combined.length,
-  oldPreserved: combined.startsWith(oldText.replace(/\s+$/, "")),
+  oldPreserved: combined.startsWith(oldText),
 }, null, 2));

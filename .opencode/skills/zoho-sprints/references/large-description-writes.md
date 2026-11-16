@@ -15,6 +15,7 @@ Use the fallback only when:
 2. The write is authorized and the item is not in a completed/locked sprint.
 3. MCP rejects the description because of request size, not permission or validation.
 4. The full new description is known and the old description has been preserved exactly.
+5. The user's instructions permit direct Zoho API access. If the user requires MCP-only access, leave the write pending and report that the current MCP tool has no body field for the description.
 
 ## Endpoint
 

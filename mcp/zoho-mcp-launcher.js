@@ -1,8 +1,9 @@
-const fs = require('node:fs');
-const path = require('node:path');
-const { spawn } = require('node:child_process');
+import fs from 'node:fs';
+import path from 'node:path';
+import { spawn } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
-const projectRoot = path.resolve(__dirname, '..');
+const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const configPath = path.join(projectRoot, 'docu', 'mcp_sprint_config.json');
 const server = JSON.parse(fs.readFileSync(configPath, 'utf8')).mcpServers?.ZohoMCP;
 if (server?.command !== 'npx' || !Array.isArray(server.args) || server.args[0] !== 'mcp-remote') {
@@ -10,7 +11,7 @@ if (server?.command !== 'npx' || !Array.isArray(server.args) || server.args[0] !
 }
 
 const npmCli = path.join(path.dirname(process.execPath), 'node_modules', 'npm', 'bin', 'npx-cli.js');
-const child = spawn(process.execPath, [npmCli, '--yes', ...server.args], {
+const child = spawn(process.execPath, [npmCli, '--yes', ...server.args, '--device-code'], {
   cwd: projectRoot,
   stdio: 'inherit',
   windowsHide: true,

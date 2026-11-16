@@ -72,11 +72,11 @@
         },
         {
           "path": "references/field-completeness.md",
-          "sha256": "347132bdfa3e79293c80763ae7e6f83c3ee46c461e5573576674a4ec11eb22d6"
+          "sha256": "410ce4f617de349b36be630d0bfba618244dc9fa4aa5cc0c76283df0d6cec71e"
         },
         {
           "path": "references/large-description-writes.md",
-          "sha256": "4ee2f235ecf41472080321f808f454ec05179867e3be24e4068574c9b4cee402"
+          "sha256": "ab99f9b523a72b9b0bafaaf32e3f3f2e230da080d27321f96d6998982e490176"
         },
         {
           "path": "references/mcp-discovery.md",
@@ -88,11 +88,11 @@
         },
         {
           "path": "scripts/append-description.mjs",
-          "sha256": "6e79756a29a5830c39e37ae3f0ae0a8a2dda03b19d509b7d691bf1e4bb8cf06a"
+          "sha256": "9f88aaf68c31264ead924c0f63e0d11cb86024a38118f4eccf4fd954e73d3bf8"
         },
         {
           "path": "SKILL.md",
-          "sha256": "b20ff51f2e71393e0ed357fbfabc532a557114b906a1e321f6c5ff220615b381"
+          "sha256": "83fc24021a6923636b055707c8a18ee1a1690666a007124a3f8bb6b61ed004f6"
         },
         {
           "path": "workflows/admin-management.md",
@@ -116,7 +116,7 @@
         },
         {
           "path": "workflows/document-actual-delivery.md",
-          "sha256": "9cd25098ad8e50bb52203897ecdec1d2638fb858e74fc600b7c14ec2d40e0314"
+          "sha256": "7e1c042bea5efda74178540e8511dcae152d883cd89292e59887c58340391c70"
         },
         {
           "path": "workflows/git-audit.md",
@@ -203,11 +203,11 @@
       "files": [
         {
           "path": "assets/task-template-ar-en.md",
-          "sha256": "85e1a691b725ad6c0b9ad9abfd61f6bedd77168f7a0f9466bea5fa3376127007"
+          "sha256": "5e85641afbcaff4a2f837bdda1cc7754398427048d69d30e455440863e1c070e"
         },
         {
           "path": "SKILL.md",
-          "sha256": "9f98b8a43a048c72851430063ea22928c4c1715a6346aebc52d976629c6df758"
+          "sha256": "2f00e03cdf13e81bfb6894cc8128274ebc7bb544e6d5e9715632e8e6fce53c8b"
         }
       ]
     }

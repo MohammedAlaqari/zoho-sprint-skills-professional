@@ -47,27 +47,29 @@ Use for a Zoho Sprints Task or Bug under a verified parent Story. Keep the descr
 <...>
 ```
 
-## Arabic fields
+## Arabic and English name fields
 
 ```text
-UDF_CHAR3 (الاسم العربي): <اسم عربي قصير>
-UDF_CHAR4 (الاسم الإنجليزي): <short English name>
+Arabic name, if required by this project's layout: <اسم عربي قصير>
+English name, if required by this project's layout: <short English name>
 ```
+
+For World Cup / Sports Activities, verify `UDF_CHAR3` and `UDF_CHAR4` against the live layout before using them. Other projects may use different fields.
 
 ## Zoho field mapping
 
 | Content | Zoho field |
 |---|---|
-| Title | `itemName` |
-| Arabic short name | `UDF_CHAR3` |
-| English short name | `UDF_CHAR4` |
+| Title | live item title field |
+| Arabic short name | verified project field, when required |
+| English short name | verified project field, when required |
 | Structured description | `description` |
 | Parent | verified Story ID |
 | Sprint | parent's sprint or the authorized target |
 | Type | live Task or Bug item type ID |
 | Priority | live priority ID + one-sentence rationale |
-| Assignee | Current Project Team owner for the surface |
-| Points | `0` unless the project tracks Task effort |
+| Assignee | verified owner under this project's team rules |
+| Points | target project's verified Task effort convention |
 
 ## Done check
 

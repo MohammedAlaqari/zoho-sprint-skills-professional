@@ -8,11 +8,12 @@
  * Batch file: [{ "tool": "name", "args": { ... } }, ...] or
  *             [{ "method": "tools/list", "params": {} }, ...]
  */
-const fs = require('node:fs');
-const path = require('node:path');
-const { spawn } = require('node:child_process');
+import fs from 'node:fs';
+import path from 'node:path';
+import { spawn } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
-const projectRoot = path.resolve(__dirname, '..');
+const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const configPath = path.join(projectRoot, 'docu', 'mcp_sprint_config.json');
 const server = JSON.parse(fs.readFileSync(configPath, 'utf8')).mcpServers?.ZohoMCP;
 if (!server || server.command !== 'npx' || !Array.isArray(server.args)) {
@@ -21,7 +22,7 @@ if (!server || server.command !== 'npx' || !Array.isArray(server.args)) {
 }
 
 const npmCli = path.join(path.dirname(process.execPath), 'node_modules', 'npm', 'bin', 'npx-cli.js');
-const child = spawn(process.execPath, [npmCli, '--yes', ...server.args], {
+const child = spawn(process.execPath, [npmCli, '--yes', ...server.args, '--device-code'], {
   cwd: projectRoot,
   stdio: ['pipe', 'pipe', 'pipe'],
   windowsHide: true,
@@ -70,7 +71,7 @@ child.stdout.on('data', (chunk) => {
   }
 });
 
-child.stderr.on('data', (d) => console.error('[stderr]', d.toString('utf8').trim()));
+child.stderr.on('data', () => {});
 child.on('exit', (code) => {
   for (const [id, p] of pending) { clearTimeout(p.timer); p.reject(new Error(`Server exited (${code}) before response ${id}`)); }
   pending.clear();
@@ -95,11 +96,30 @@ async function main() {
     const result = await send('tools/list', {});
     const tools = (result.tools || []).map((t) => ({ name: t.name, description: t.description, inputSchema: t.inputSchema }));
     console.log(JSON.stringify({ server: init.serverInfo, count: tools.length, tools }, null, 2));
+  } else if (cmd === 'list-tools-summary') {
+    const result = await send('tools/list', {});
+    const names = (result.tools || []).map((t) => t.name);
+    console.log(JSON.stringify({ count: names.length, relevant: names.filter((name) => /Workspaces|GetProjects|GetItems|GetItemDetails|CreateSubItem|UpdateItem|Description|Request|Execute|Api/i.test(name)) }, null, 2));
+  } else if (cmd === 'tool-schema') {
+    const result = await send('tools/list', {});
+    const selected = (result.tools || []).find((tool) => tool.name === rest[0]);
+    if (!selected) throw new Error('Requested MCP tool is unavailable.');
+    console.log(JSON.stringify({ name: selected.name, inputSchema: selected.inputSchema }, null, 2));
   } else if (cmd === 'call') {
     const tool = rest[0];
     const args = rest[1] ? JSON.parse(rest[1]) : {};
     const result = await send('tools/call', { name: tool, arguments: args });
     console.log(JSON.stringify(result, null, 2));
+  } else if (cmd === 'call-summary') {
+    const tool = rest[0];
+    const args = rest[1] ? JSON.parse(rest[1]) : {};
+    const result = await send('tools/call', { name: tool, arguments: args });
+    const raw = result.structuredContent || result.content?.find((part) => part.type === 'text')?.text;
+    let payload = raw;
+    if (typeof raw === 'string') {
+      try { payload = JSON.parse(raw); } catch { payload = {}; }
+    }
+    console.log(JSON.stringify({ tool, isError: Boolean(result.isError), status: payload?.status ?? null, hasData: payload?.data != null, contentCount: result.content?.length ?? 0 }, null, 2));
   } else if (cmd === 'batch') {
     const items = JSON.parse(fs.readFileSync(rest[0], 'utf8'));
     const out = [];
@@ -121,4 +141,4 @@ async function main() {
   setTimeout(() => { child.kill(); process.exit(0); }, 1000).unref();
 }
 
-main().catch((e) => { console.error('ERROR:', e.message); try { child.kill(); } catch {} process.exit(1); });
+main().catch(() => { console.error('ERROR: MCP connection failed with browser disabled.'); try { child.kill(); } catch {} process.exit(1); });

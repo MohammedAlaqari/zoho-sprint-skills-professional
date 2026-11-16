@@ -2,7 +2,7 @@
 
 ابدأ من [الدليل التفصيلي لربط MCP وتحديد المشروع واستخدام المهارة](GETTING_STARTED_MCP_AR.md).
 
-مهارة Zoho Sprints عبر MCP، مبنية من متطلبات [المحادثة الأصلية](docs/REQUIREMENTS-TRACEABILITY_AR.md). تشمل دورَي Admin وDeveloper، فحص Sprint النشطة والتواريخ والتكرار، ربط Git وBMAD، وسجلًا محليًا لتجنب تكرار العناصر عند التشغيل اللاحق.
+حزمة الإصدار 3.0.0 تضم سبع مهارات Zoho Sprints عبر MCP، منها صياغة قصص المستخدم ومهام المطورين، إضافة إلى الإدارة والربط والإصدارات. تشمل دورَي Admin وDeveloper، فحص Sprint النشطة والتواريخ والتكرار، ربط Git وBMAD، وسجلًا محليًا لتجنب تكرار العناصر عند التشغيل اللاحق. راجع [مصفوفة المتطلبات](docs/REQUIREMENTS-TRACEABILITY_AR.md) للخلفية.
 
 ## التثبيت
 
@@ -21,14 +21,14 @@ node tools/install.mjs --editor codex --target "F:\zoho sprint skills"
 
 ## التطوير والتحقق
 
-حرر المصدر داخل `.agents/skills/zoho-sprints/` فقط، ثم نفذ:
+حرر مصدر المهارة المطلوبة داخل `.agents/skills/<skill-name>/`، ثم نفذ:
 
 ```powershell
 npm run sync
 npm run check
 ```
 
-`sync` يولد `skills/zoho-sprints/` و`manifest.json` بصورة حتمية. `check` يشغّل الاختبارات ثم يتحقق من تطابق المصدر والنسخة الموزعة والروابط والعقد. ملف [تصميم الحزمة](docs/ARCHITECTURE_AR.md) يشرح المسؤوليات، و[مصفوفة المتطلبات](docs/REQUIREMENTS-TRACEABILITY_AR.md) تبين تغطية طلبات المحادثة.
+`sync` يولد نسخ المهارات السبع في `skills/` و`manifest.json` بصورة حتمية. `check` يشغّل الاختبارات ثم يتحقق من تطابق المصدر والنسخ الموزعة والروابط والعقد. ملف [تصميم الحزمة](docs/ARCHITECTURE_AR.md) يشرح المسؤوليات.
 
 ## حدود مهمة
 

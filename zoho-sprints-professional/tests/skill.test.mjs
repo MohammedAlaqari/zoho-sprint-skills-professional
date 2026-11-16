@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { check, sync, SKILL_NAMES } from '../tools/skill.mjs';
 
@@ -57,3 +58,23 @@ test('check rejects a description that does not start with Use when', () => fixt
   fs.writeFileSync(file, text);
   assert.ok(check(base).some((error) => error.includes('must start with "Use when"')));
 }));
+
+test('append-description preserves the complete old prefix, including trailing whitespace', () => {
+  const base = fs.mkdtempSync(path.join(os.tmpdir(), 'zoho-description-'));
+  try {
+    const oldPath = path.join(base, 'old.txt');
+    const newPath = path.join(base, 'new.txt');
+    const outPath = path.join(base, 'combined.txt');
+    const oldText = '<p>Existing requirement</p>\r\n  \r\n';
+    fs.writeFileSync(oldPath, oldText, 'utf8');
+    fs.writeFileSync(newPath, 'New evidence', 'utf8');
+    const script = path.join(packageRoot, '.agents', 'skills', 'zoho-sprints', 'scripts', 'append-description.mjs');
+    const result = spawnSync(process.execPath, [script, oldPath, newPath, outPath], { encoding: 'utf8' });
+    assert.equal(result.status, 0, result.stderr);
+    const combined = fs.readFileSync(outPath, 'utf8');
+    assert.equal(combined, `${oldText}##+=================================================##\nNew evidence`);
+    assert.equal(JSON.parse(result.stdout).oldPreserved, true);
+  } finally {
+    fs.rmSync(base, { recursive: true, force: true });
+  }
+});

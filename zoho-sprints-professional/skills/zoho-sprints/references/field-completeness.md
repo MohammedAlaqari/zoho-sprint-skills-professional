@@ -21,7 +21,7 @@ The description is structured multi-line text, not a one-line summary. Preserve 
 
 Below it, write the new/actual-delivery section with headings, criterion verdicts and evidence. Never overwrite the old business explanation. If the old text is HTML, preserve its markup and insert the separator as its own paragraph.
 
-MCP carries description text in the query string, so a large payload can fail with `414` or `Error in executing tool`. Do not truncate or split the description. Use [large description writes](large-description-writes.md) for the `application/x-www-form-urlencoded` fallback and read back the stored value. Assemble the text with [append-description.mjs](../scripts/append-description.mjs) to verify that the old bytes, the single separator and the new hash are correct.
+MCP carries description text in the query string, so a large payload can fail with `414` or `Error in executing tool`. Do not truncate or split the description. Use [large description writes](large-description-writes.md) for the `application/x-www-form-urlencoded` fallback only when direct API access is permitted; MCP-only work stays pending on a size failure. Read back any stored value. Assemble the text with [append-description.mjs](../scripts/append-description.mjs) to verify that the old bytes, the single separator and the new hash are correct.
 
 ## Tool capability boundary
 
