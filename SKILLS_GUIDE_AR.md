@@ -1,5 +1,7 @@
 # دليل المهارات (Skills) — Zoho Sprints Professional
 
+> هذا مرجع تاريخي. للدليل الحالي استخدم [النسخة العربية](SKILLS_USAGE_GUIDE_AR.md) أو [English guide](SKILLS_USAGE_GUIDE_EN.md)، وللعرض استخدم [المحاكاة العربية](SCENARIO_PLAYBOOK_AR.md) أو [English simulations](SCENARIO_PLAYBOOK_EN.md).
+
 > **أرشيف تاريخي (2026-11-08):** يحتفظ هذا الملف بأمثلة من نسخة سابقة، بما فيها أعداد مهارات ومسارات تثبيت لم تعد صحيحة. للاستخدام الحالي اقرأ [دليل الاستخدام](SKILLS_USAGE_GUIDE_AR.md)، [محاكاة الجلسة التفاعلية](SKILLS_SIMULATION_AR.md)، وتعليمات [zoho-workflow](.agents/skills/zoho-workflow/SKILL.md). تنطبق قاعدة `AGENTS.md` الحالية: Zoho عبر MCP فقط ودون متصفح.
 
 > **الهدف:** شرح تشغيل مهارات Zoho وآلية التنسيق الشبيهة بـ BMAD، مع توصية عملية بالخطوة التالية بناءً على نتيجة كل مرحلة.

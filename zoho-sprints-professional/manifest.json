@@ -9,19 +9,19 @@
       "files": [
         {
           "path": "assets/workflow-status.template.md",
-          "sha256": "6aa459d2f7004305af65b91776e1bf2145abcdd61347ecacd81f4e643d134737"
+          "sha256": "11d95fff5b06bc5d53d7f7f5e207eb3ce2980e7107aacdc09dc1b8c34ec751f4"
         },
         {
           "path": "references/guided-session.md",
-          "sha256": "3a74501d85fd673a1058240af3e4ac36df2ff348c57a134c302ddc04856d99cf"
+          "sha256": "2076fe0f7f37de91103bc5578065b9b024102e61dd8783449266da5017e229c9"
         },
         {
           "path": "references/phase-map.md",
-          "sha256": "742c8a9e640e4a504949b151d4ace4becc8d80d681b73126b6a0af64ca5e11ce"
+          "sha256": "c3656009f8c9ab5b044b105d8f1cb026e2b54f55bdc0086805b241fdea828d0a"
         },
         {
           "path": "SKILL.md",
-          "sha256": "3ceea7799d838dd8ab96316c129443fbbc62f07f48b8e3021c694a34baf8aecc"
+          "sha256": "0c8549b1718c48796baf375efb88f2cb16867b9d776597a1ddbd8141b7d9e116"
         }
       ]
     },
@@ -84,11 +84,11 @@
         },
         {
           "path": "references/field-completeness.md",
-          "sha256": "410ce4f617de349b36be630d0bfba618244dc9fa4aa5cc0c76283df0d6cec71e"
+          "sha256": "3d8067a5a08868495dfeb37a9991c212d89222a42fc2bfd8e96cd5b221e24145"
         },
         {
           "path": "references/large-description-writes.md",
-          "sha256": "ab99f9b523a72b9b0bafaaf32e3f3f2e230da080d27321f96d6998982e490176"
+          "sha256": "2111baf05aba1b77e41db5fe959b508641157e6df78ccf259ee7db61cd574eb9"
         },
         {
           "path": "references/mcp-discovery.md",
@@ -100,11 +100,11 @@
         },
         {
           "path": "scripts/append-description.mjs",
-          "sha256": "9f88aaf68c31264ead924c0f63e0d11cb86024a38118f4eccf4fd954e73d3bf8"
+          "sha256": "4254dac4f79ee2529fe62e063b29ec53889e8c96f3088d7818c49fb693928711"
         },
         {
           "path": "SKILL.md",
-          "sha256": "83fc24021a6923636b055707c8a18ee1a1690666a007124a3f8bb6b61ed004f6"
+          "sha256": "aaa3ba8fb9cae2ae9638461fb80b86b995e3db313442b4aceb92faa0ea405f8b"
         },
         {
           "path": "workflows/admin-management.md",
@@ -128,7 +128,7 @@
         },
         {
           "path": "workflows/document-actual-delivery.md",
-          "sha256": "7e1c042bea5efda74178540e8511dcae152d883cd89292e59887c58340391c70"
+          "sha256": "a1b82b4f5f07412098976dd476c0e3c8378673fcf87b1b3983d274351b45f371"
         },
         {
           "path": "workflows/git-audit.md",
@@ -215,11 +215,11 @@
       "files": [
         {
           "path": "assets/task-template-ar-en.md",
-          "sha256": "5e85641afbcaff4a2f837bdda1cc7754398427048d69d30e455440863e1c070e"
+          "sha256": "5113ed19b0936237874933a046d132535366f51b0988dca4be68196706829c0b"
         },
         {
           "path": "SKILL.md",
-          "sha256": "2f00e03cdf13e81bfb6894cc8128274ebc7bb544e6d5e9715632e8e6fce53c8b"
+          "sha256": "ed3d03579114f614731638e86d68731997952e9c37d4175f9c3d2536bc4eef07"
         }
       ]
     }
