@@ -2,6 +2,7 @@
   "name": "zoho-sprints-professional-skills",
   "version": "3.0.0",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "engines": { "node": ">=22" },
   "scripts": {
